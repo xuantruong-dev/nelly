@@ -1,0 +1,898 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
+  --font-script: "Dancing Script", "Lora", cursive;
+  --font-sans: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-canvas: #FDFBF7;
+  --color-canvas-soft: #FEFDFA;
+  --color-canvas-muted: #F8F5EE;
+  --color-pastel-pink: #F4B6C8;
+  --color-pastel-pink-hover: #EC9EB5;
+  --color-pastel-pink-active: #E489A4;
+  --color-pastel-pink-border: #E093AB;
+  --color-pastel-pink-tint: #F9E1E8;
+  --color-pastel-pink-ink: #4A1829;
+  --color-sky-tint: #F9F7F1;
+  --color-sky-soft: #F4F0E7;
+  --color-sky-brand: #0297DE;
+  --color-sky-deep: #006A9E;
+  --color-sky-dark: #005580;
+  --color-pink-brand: #D83995;
+  --color-pink-tint: #F9E1E8;
+  --color-ink: #14222E;
+  --color-ink-muted: #4A5C6B;
+  --color-line: #EFECE4;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+    scroll-padding-top: 74px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      scroll-padding-top: 86px;
+    }
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+  }
+
+  /* Vietnamese diacritic-safe line heights for Lora display headings */
+  h1 {
+    line-height: 1.18;
+    font-weight: 500;
+  }
+
+  h2 {
+    line-height: 1.24;
+    font-weight: 500;
+  }
+
+  h3 {
+    line-height: 1.32;
+    font-weight: 500;
+  }
+
+  button, a, input, select, textarea, [role="tab"], [tabindex] {
+    outline-color: var(--color-pink-brand);
+  }
+
+  input, select, textarea {
+    accent-color: var(--color-pink-brand);
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--color-pastel-pink-border);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-pink-brand);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(244, 182, 200, 0.5);
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Unified Storefront Container: max 1320px, 20px mobile side margin */
+  .hn-container {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  /* Unified Section Vertical Rhythm: 48px on mobile, scaling smoothly on desktop */
+  .hn-section {
+    padding-block: 48px;
+  }
+
+  /* Unified Inner Page Shell: max 1320px, 20px mobile gutter, 48px vertical rhythm */
+  .hn-page-shell {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    padding-block: 48px;
+  }
+
+  /* Consistent 12-Column Master Layout Grid */
+  .hn-grid-12 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  /* Consistent 4-Column Showcase / Product / Gallery Grid */
+  .hn-grid-4 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  /* Consistent 3-Column Card / Catalog / Service Grid */
+  .hn-grid-3 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  @media (min-width: 480px) {
+    .hn-grid-4,
+    .hn-grid-3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 640px) {
+    .hn-container,
+    .hn-page-shell {
+      padding-inline: 24px;
+    }
+
+    .hn-section {
+      padding-block: 64px;
+    }
+
+    .hn-page-shell {
+      padding-block: 56px;
+    }
+
+    .hn-grid-12 {
+      gap: 32px;
+    }
+
+    .hn-grid-4,
+    .hn-grid-3 {
+      gap: 24px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hn-grid-4 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hn-container,
+    .hn-page-shell {
+      padding-inline: 32px;
+    }
+
+    .hn-section {
+      padding-block: 80px;
+    }
+
+    .hn-page-shell {
+      padding-block: 64px;
+    }
+
+    .hn-grid-12 {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 40px;
+    }
+
+    .hn-grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .hn-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+@layer utilities {
+  /* Primary & secondary button utilities in soft Pastel Pink (Hồng phấn #F4B6C8) with high-contrast #4A1829 ink */
+  .hn-btn-primary {
+    background-color: #F4B6C8;
+    color: #4A1829;
+    border: 1px solid #E093AB;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 24px -14px rgba(196, 94, 128, 0.48);
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 160ms ease;
+  }
+
+  .hn-btn-primary:hover {
+    background-color: #EC9EB5;
+    border-color: #D47B97;
+    color: #3C1020;
+    box-shadow: 0 14px 28px -14px rgba(186, 78, 114, 0.54);
+  }
+
+  .hn-btn-primary:active {
+    background-color: #E489A4;
+    transform: scale(0.99);
+  }
+
+  .hn-btn-primary:focus-visible {
+    outline: 2px solid #D83995;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(244, 182, 200, 0.58);
+  }
+
+  .hn-btn-secondary {
+    background-color: #F9E1E8;
+    color: #4A1829;
+    border: 1px solid #E093AB;
+    border-radius: 0.75rem;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 160ms ease;
+  }
+
+  .hn-btn-secondary:hover {
+    background-color: #F4B6C8;
+    border-color: #D47B97;
+    color: #3C1020;
+  }
+
+  .hn-btn-secondary:focus-visible {
+    outline: 2px solid #D83995;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(244, 182, 200, 0.52);
+  }
+
+  .hn-btn-choice {
+    background-color: #FDFBF7;
+    color: #14222E;
+    border: 1px solid #EFECE4;
+    border-radius: 0.75rem;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .hn-btn-choice:hover {
+    border-color: #E093AB;
+    color: #4A1829;
+    background-color: #F9E1E8;
+  }
+
+  .hn-btn-choice[aria-selected="true"],
+  .hn-btn-choice[aria-pressed="true"],
+  .hn-btn-choice.is-active {
+    background-color: #F4B6C8;
+    border-color: #D47B97;
+    color: #4A1829;
+    box-shadow: 0 10px 22px -12px rgba(196, 94, 128, 0.45);
+  }
+
+  .hn-focus-blue:focus-visible {
+    outline: 2px solid #D83995;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(244, 182, 200, 0.5);
+  }
+
+  /* Restrained Pink #D83995 accent utilities for hearts & decorative ribbons */
+  .hn-accent-pink {
+    color: #D83995;
+  }
+
+  .hn-icon-heart {
+    color: #D83995;
+    fill: rgba(216, 57, 149, 0.14);
+    transition: fill 180ms ease, transform 180ms ease;
+  }
+
+  .hn-icon-heart:hover,
+  .group:hover .hn-icon-heart {
+    fill: #D83995;
+    transform: scale(1.06);
+  }
+
+  .hn-ribbon-pink {
+    color: #D83995;
+    stroke: #D83995;
+  }
+
+  .hn-ribbon-soft-bg {
+    background-color: #F9E1E8;
+    border-color: rgba(216, 57, 149, 0.28);
+  }
+
+  /* 3D Liquid Glass Capsule Navbar (Reference-Matched Crystal Glass + Left Blue / Right Pink Refraction) */
+  .hn-liquid-nav {
+    position: relative;
+    isolation: isolate;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(191, 234, 246, 0.30) 0%,
+        rgba(255, 255, 255, 0.34) 14%,
+        rgba(255, 255, 255, 0.30) 50%,
+        rgba(255, 255, 255, 0.34) 86%,
+        rgba(248, 200, 220, 0.30) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.54) 0%,
+        rgba(255, 255, 255, 0.24) 50%,
+        rgba(244, 248, 252, 0.34) 100%
+      );
+    backdrop-filter: blur(20px) saturate(165%) brightness(1.03);
+    -webkit-backdrop-filter: blur(20px) saturate(165%) brightness(1.03);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow:
+      /* Crisp top specular glass rim */
+      inset 0 1.5px 1.5px rgba(255, 255, 255, 0.98),
+      /* Soft upper convex volume reflection */
+      inset 0 7px 14px -8px rgba(255, 255, 255, 0.88),
+      /* Subtle optical glass curvature beneath top specular */
+      inset 0 3px 6px -3px rgba(23, 43, 53, 0.05),
+      /* Crisp bottom refracted caustic rim */
+      inset 0 -1.5px 2px rgba(255, 255, 255, 0.90),
+      /* Gentle lower internal curvature depth */
+      inset 0 -8px 16px -11px rgba(23, 43, 53, 0.18),
+      /* Subtle cool sky-blue left endcap refraction */
+      inset 14px 0 22px -10px rgba(154, 221, 245, 0.72),
+      /* Subtle pastel blush-pink right endcap refraction */
+      inset -14px 0 22px -10px rgba(246, 178, 209, 0.72),
+      /* Hairline definition ring for legibility on light backgrounds */
+      0 0 0 1px rgba(23, 43, 53, 0.055),
+      /* Delicate chromatic side bloom matching reference endcaps */
+      -10px 0 22px -14px rgba(145, 214, 242, 0.36),
+      10px 0 22px -14px rgba(244, 170, 204, 0.36),
+      /* Soft short ambient elevation shadow */
+      0 10px 26px -12px rgba(23, 43, 53, 0.18),
+      0 3px 10px -4px rgba(23, 43, 53, 0.09);
+    transition: background-color 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  /* Outer chromatic refracted glass rim (pale blue left -> pure white center -> blush pink right) */
+  .hn-liquid-nav::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(
+      95deg,
+      rgba(176, 230, 247, 0.96) 0%,
+      rgba(255, 255, 255, 0.96) 18%,
+      rgba(255, 255, 255, 0.88) 50%,
+      rgba(255, 255, 255, 0.94) 82%,
+      rgba(248, 194, 218, 0.96) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Inner thick-glass bevel wall (gives realistic curved liquid thickness at top/bottom & both rounded ends) */
+  .hn-liquid-nav::after {
+    content: "";
+    position: absolute;
+    inset: 3.5px;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.80),
+      inset 0 -1px 1.5px rgba(255, 255, 255, 0.62),
+      inset 7px 0 12px -6px rgba(191, 234, 246, 0.72),
+      inset -7px 0 12px -6px rgba(248, 200, 220, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hn-liquid-nav-scrolled {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(191, 234, 246, 0.28) 0%,
+        rgba(255, 255, 255, 0.36) 15%,
+        rgba(255, 255, 255, 0.30) 50%,
+        rgba(255, 255, 255, 0.36) 85%,
+        rgba(248, 200, 220, 0.28) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.56) 0%,
+        rgba(255, 255, 255, 0.26) 52%,
+        rgba(248, 250, 254, 0.36) 100%
+      );
+    box-shadow:
+      inset 0 1.5px 1.5px rgba(255, 255, 255, 0.98),
+      inset 0 7px 14px -8px rgba(255, 255, 255, 0.88),
+      inset 0 -1.5px 2px rgba(255, 255, 255, 0.92),
+      inset 0 -8px 16px -11px rgba(23, 43, 53, 0.16),
+      inset 14px 0 22px -10px rgba(154, 221, 245, 0.65),
+      inset -14px 0 22px -10px rgba(246, 178, 209, 0.65),
+      0 0 0 1px rgba(23, 43, 53, 0.065),
+      0 14px 32px -12px rgba(23, 43, 53, 0.22),
+      0 4px 12px -4px rgba(23, 43, 53, 0.10);
+  }
+
+  /* Circular 3D Liquid Glass Icon Orb (Search, Cart, Mobile Menu) */
+  .hn-liquid-icon-btn {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.74) 0%,
+      rgba(255, 255, 255, 0.34) 56%,
+      rgba(245, 247, 252, 0.52) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    box-shadow:
+      inset 0 1.5px 2px rgba(255, 255, 255, 0.98),
+      inset 0 -2px 4px rgba(23, 43, 53, 0.10),
+      inset 0 -1px 1.5px rgba(255, 255, 255, 0.78),
+      0 0 0 0.5px rgba(23, 43, 53, 0.06),
+      0 5px 12px -5px rgba(23, 43, 53, 0.18);
+    transition:
+      transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease,
+      color 180ms ease;
+  }
+
+  .hn-liquid-icon-btn:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.90) 0%,
+      rgba(255, 246, 250, 0.58) 58%,
+      rgba(253, 240, 246, 0.74) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.98);
+    transform: translateY(-0.5px);
+    box-shadow:
+      inset 0 1.5px 2.5px rgba(255, 255, 255, 1),
+      inset 0 -2px 4px rgba(236, 39, 122, 0.12),
+      0 0 0 0.5px rgba(236, 39, 122, 0.14),
+      0 8px 16px -6px rgba(23, 43, 53, 0.20);
+  }
+
+  .hn-liquid-icon-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* Glossy 3D Pastel Blush-Pink (Hồng phấn) Glass Pill CTA ("Đặt mẫu theo yêu cầu") */
+  .hn-liquid-cta {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      #FDE4EE 0%,
+      #F7C2D7 46%,
+      #F1A4C2 82%,
+      #E98EB2 100%
+    );
+    border: 1px solid rgba(255, 240, 246, 0.92);
+    box-shadow:
+      inset 0 1.5px 2.5px rgba(255, 255, 255, 0.92),
+      inset 0 -3px 6px rgba(196, 86, 132, 0.28),
+      inset 0 -1px 2px rgba(255, 232, 242, 0.72),
+      0 8px 20px -6px rgba(233, 142, 178, 0.46),
+      0 2px 6px -1px rgba(214, 118, 158, 0.22);
+    transition:
+      transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms ease,
+      filter 200ms ease;
+  }
+
+  .hn-liquid-cta::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 2px;
+    height: 44%;
+    border-radius: 9999px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.78) 0%,
+      rgba(255, 255, 255, 0.24) 72%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hn-liquid-cta:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow:
+      inset 0 1.5px 3px rgba(255, 255, 255, 0.96),
+      inset 0 -3px 6px rgba(196, 86, 132, 0.24),
+      inset 0 -1px 2px rgba(255, 240, 247, 0.80),
+      0 12px 26px -6px rgba(233, 142, 178, 0.56),
+      0 3px 8px -2px rgba(214, 118, 158, 0.28);
+  }
+
+  .hn-liquid-cta:active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  /* Liquid Glass Popover (Category Dropdown & Search Bar) */
+  .hn-liquid-popover {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(240, 250, 255, 0.88) 0%,
+        rgba(255, 255, 255, 0.86) 52%,
+        rgba(255, 242, 248, 0.88) 100%
+      );
+    backdrop-filter: blur(22px) saturate(165%);
+    -webkit-backdrop-filter: blur(22px) saturate(165%);
+    border: 1px solid rgba(255, 255, 255, 0.90);
+    box-shadow:
+      inset 0 1.5px 2px rgba(255, 255, 255, 0.96),
+      inset 0 -2px 5px rgba(23, 43, 53, 0.05),
+      0 0 0 1px rgba(23, 43, 53, 0.055),
+      0 20px 44px -16px rgba(23, 43, 53, 0.24);
+  }
+
+  /* Liquid Glass Mobile Drawer */
+  .hn-liquid-drawer {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(250, 253, 255, 0.92) 0%,
+        rgba(253, 251, 247, 0.94) 55%,
+        rgba(255, 246, 250, 0.94) 100%
+      );
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border-right: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      inset -1px 0 2px rgba(255, 255, 255, 0.90),
+      20px 0 48px -18px rgba(23, 43, 53, 0.26);
+  }
+
+  /* Lower backdrop-filter blur radius on mobile viewports to cut GPU composite overhead */
+  @media (max-width: 767px) {
+    .hn-liquid-nav,
+    .hn-liquid-nav-scrolled {
+      backdrop-filter: blur(12px) saturate(145%) brightness(1.02);
+      -webkit-backdrop-filter: blur(12px) saturate(145%) brightness(1.02);
+    }
+
+    .hn-liquid-popover,
+    .hn-liquid-drawer {
+      backdrop-filter: blur(14px) saturate(145%);
+      -webkit-backdrop-filter: blur(14px) saturate(145%);
+    }
+  }
+
+  /* Graceful fallback when backdrop-filter is unsupported */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .hn-liquid-nav,
+    .hn-liquid-nav-scrolled {
+      background: linear-gradient(
+        90deg,
+        rgba(241, 250, 253, 0.95) 0%,
+        rgba(253, 251, 247, 0.95) 50%,
+        rgba(254, 244, 248, 0.95) 100%
+      );
+    }
+
+    .hn-liquid-popover,
+    .hn-liquid-drawer {
+      background: rgba(253, 251, 247, 0.97);
+    }
+  }
+  /* Contained horizontal scroll rail for mobile filter chips & thumbnail strips */
+  .hn-scroll-rail {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .hn-scroll-rail::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* CSS 3D depth helpers for Hoa Nelly GSAP scenes */
+.hn-perspective {
+  perspective: 1200px;
+}
+
+.hn-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.hn-backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Diacritic-safe line mask wrapper for SplitText Vietnamese line reveals (ệ, ự, ỡ, Ước) */
+.hn-split-line-mask {
+  overflow: clip !important;
+  padding-top: 0.16em;
+  padding-bottom: 0.18em;
+  margin-top: -0.16em;
+  margin-bottom: -0.18em;
+}
+
+/* Smooth frame clipping container for cinematic image reveals (avoid permanent GPU promotion) */
+.hn-frame-clip {
+  contain: layout paint;
+}
+
+/* Official Lenis smooth-wheel compatibility: prevents native CSS scroll-behavior fighting RAF ticks */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Ambient Hero Stage animations (compositor-only, disabled under prefers-reduced-motion) */
+@keyframes hnFloatBubble {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -9px, 0) scale(1.03);
+  }
+}
+
+@keyframes hnButterflyFlutter {
+  0%, 100% {
+    transform: perspective(360px) translate3d(0, 0, 0) rotate(-6deg) rotateY(0deg) scaleX(1);
+  }
+  16% {
+    transform: perspective(360px) translate3d(4px, -6px, 0) rotate(-1deg) rotateY(24deg) scaleX(0.78);
+  }
+  32% {
+    transform: perspective(360px) translate3d(8px, -11px, 0) rotate(-5deg) rotateY(-10deg) scaleX(1.03);
+  }
+  50% {
+    transform: perspective(360px) translate3d(2px, -14px, 0) rotate(-9deg) rotateY(26deg) scaleX(0.76);
+  }
+  68% {
+    transform: perspective(360px) translate3d(-5px, -7px, 0) rotate(-4deg) rotateY(-8deg) scaleX(1.02);
+  }
+  84% {
+    transform: perspective(360px) translate3d(-3px, -2px, 0) rotate(-7deg) rotateY(20deg) scaleX(0.82);
+  }
+}
+
+/* Realistic butterfly aerial flight trajectories (outer wrapper, compositor-only) */
+@keyframes hnButterflyFlight {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate3d(8px, -9px, 0) rotate(3.5deg);
+  }
+  45% {
+    transform: translate3d(13px, -4px, 0) rotate(-2deg);
+  }
+  70% {
+    transform: translate3d(-6px, -12px, 0) rotate(-4deg);
+  }
+  88% {
+    transform: translate3d(-8px, -3px, 0) rotate(2deg);
+  }
+}
+
+@keyframes hnButterflyFlightAlt {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(-9px, -10px, 0) rotate(-4deg);
+  }
+  52% {
+    transform: translate3d(-12px, -2px, 0) rotate(2.5deg);
+  }
+  76% {
+    transform: translate3d(6px, -11px, 0) rotate(3.5deg);
+  }
+}
+
+@keyframes hnButterflyFlightGlide {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(10px, -7px, 0) rotate(4deg);
+  }
+  60% {
+    transform: translate3d(-5px, -13px, 0) rotate(-3.5deg);
+  }
+  82% {
+    transform: translate3d(-9px, -4px, 0) rotate(1.5deg);
+  }
+}
+
+/* Realistic 3D butterfly wing-beat (inner img, pivots around body center) */
+@keyframes hnButterflyWingbeat {
+  0%, 100% {
+    transform: perspective(440px) rotateY(0deg) rotateX(0deg) scaleX(1) scaleY(1);
+  }
+  24% {
+    transform: perspective(440px) rotateY(30deg) rotateX(8deg) scaleX(0.74) scaleY(1.03);
+  }
+  44% {
+    transform: perspective(440px) rotateY(-8deg) rotateX(-3deg) scaleX(1.03) scaleY(0.99);
+  }
+  68% {
+    transform: perspective(440px) rotateY(24deg) rotateX(6deg) scaleX(0.80) scaleY(1.02);
+  }
+  86% {
+    transform: perspective(440px) rotateY(-4deg) rotateX(-2deg) scaleX(1.01) scaleY(1);
+  }
+}
+
+@keyframes hnGlassSheen {
+  0%, 100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hn-float-bubble {
+  animation: hnFloatBubble 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-float-bubble-delayed {
+  animation: hnFloatBubble 7.2s ease-in-out 1.4s infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-flutter {
+  animation: hnButterflyFlutter 5.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-flight {
+  animation: hnButterflyFlight 7.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-flight-alt {
+  animation: hnButterflyFlightAlt 8.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-flight-glide {
+  animation: hnButterflyFlightGlide 9.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-wingbeat {
+  transform-origin: 54% 56%;
+  animation: hnButterflyWingbeat 1.55s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-wingbeat-fast {
+  transform-origin: 54% 56%;
+  animation: hnButterflyWingbeat 1.25s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hn-butterfly-wingbeat-slow {
+  transform-origin: 54% 56%;
+  animation: hnButterflyWingbeat 1.9s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Tactile hover interaction: smoothly pause flight & wing-beat in place with a gentle lift */
+.hn-butterfly-interactive {
+  pointer-events: auto;
+  cursor: pointer;
+  transition:
+    scale 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hn-butterfly-interactive:hover {
+  animation-play-state: paused;
+  scale: 1.07;
+  translate: 0 -4px;
+  filter: drop-shadow(0 8px 18px rgba(236, 72, 153, 0.26));
+}
+
+.hn-butterfly-interactive:active {
+  scale: 1.02;
+  translate: 0 -1px;
+}
+
+.hn-butterfly-interactive:hover .hn-butterfly-wingbeat,
+.hn-butterfly-interactive:hover .hn-butterfly-wingbeat-fast,
+.hn-butterfly-interactive:hover .hn-butterfly-wingbeat-slow {
+  animation-play-state: paused;
+}
+
+.hn-butterfly-flutter.hn-butterfly-interactive:hover {
+  filter: drop-shadow(0 0 22px rgba(255, 196, 226, 0.96));
+}
+
+.hn-glass-sheen {
+  animation: hnGlassSheen 5.5s ease-in-out infinite;
+}
+
+/* Subtle slow breathing float for About page 3D floral cutout (compositor-only) */
+@keyframes hnAboutFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+.hn-about-float {
+  animation: hnAboutFloat 7.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Pause decorative infinite CSS animations when scrolled off-screen or when browser tab is hidden */
+html[data-hn-tab-hidden="true"] .hn-float-bubble,
+html[data-hn-tab-hidden="true"] .hn-float-bubble-delayed,
+html[data-hn-tab-hidden="true"] .hn-butterfly-flutter,
+html[data-hn-tab-hidden="true"] .hn-butterfly-flight,
+html[data-hn-tab-hidden="true"] .hn-butterfly-flight-alt,
+html[data-hn-tab-hidden="true"] .hn-butterfly-flight-glide,
+html[data-hn-tab-hidden="true"] .hn-butterfly-wingbeat,
+html[data-hn-tab-hidden="true"] .hn-butterfly-wingbeat-fast,
+html[data-hn-tab-hidden="true"] .hn-butterfly-wingbeat-slow,
+html[data-hn-tab-hidden="true"] .hn-glass-sheen,
+html[data-hn-tab-hidden="true"] .hn-about-float,
+.hn-motion-paused .hn-float-bubble,
+.hn-motion-paused .hn-float-bubble-delayed,
+.hn-motion-paused .hn-butterfly-flutter,
+.hn-motion-paused .hn-butterfly-flight,
+.hn-motion-paused .hn-butterfly-flight-alt,
+.hn-motion-paused .hn-butterfly-flight-glide,
+.hn-motion-paused .hn-butterfly-wingbeat,
+.hn-motion-paused .hn-butterfly-wingbeat-fast,
+.hn-motion-paused .hn-butterfly-wingbeat-slow,
+.hn-motion-paused .hn-glass-sheen,
+.hn-motion-paused .hn-about-float {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hn-frame-clip {
+    clip-path: none !important;
+    will-change: auto;
+  }
+}

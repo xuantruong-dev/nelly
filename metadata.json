@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Hoa Nelly",
+  "description": "Website thương mại điện tử chuyên nghiệp cung cấp hoa bóng bay nghệ thuật, phụ kiện sinh nhật và dịch vụ sự kiện.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
