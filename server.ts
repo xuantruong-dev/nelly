@@ -2742,7 +2742,14 @@ app.use('/api', (err: unknown, _req: Request, res: Response, _next: NextFunction
 
 async function startServer(): Promise<void> {
   const port = Number(process.env.PORT || 3000);
-  const isProd = process.env.NODE_ENV === 'production';
+  const distDir = path.resolve(process.cwd(), 'dist');
+  const isDevRunner =
+    process.env.NODE_ENV === 'development' ||
+    process.env.npm_lifecycle_event === 'dev' ||
+    process.execArgv.some((arg) => arg.includes('tsx'));
+  const isProd =
+    process.env.NODE_ENV === 'production' ||
+    (!isDevRunner && fs.existsSync(path.join(distDir, 'index.html')));
 
   // Serve media assets with strong browser cache & byte-range support in both dev and production
   const publicMediaDir = path.resolve(process.cwd(), 'public/assets/aistudio');
@@ -2765,7 +2772,6 @@ async function startServer(): Promise<void> {
     });
     app.use(vite.middlewares);
   } else {
-    const distDir = path.resolve(process.cwd(), 'dist');
     const distHashedAssets = path.join(distDir, 'assets');
     if (fs.existsSync(distHashedAssets)) {
       app.use(
